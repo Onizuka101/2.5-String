@@ -20,6 +20,7 @@ public class Employee {
     public String getSurname() {
         return this.surname;
     }
+    public String getFullName(){return name + " " +surname;}
 
     @Override
     public boolean equals(Object o) {
