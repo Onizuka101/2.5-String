@@ -36,6 +36,4 @@ public class DepartmentController {
         return departmentService.findEmployeeFromDepartment(department);
     }
 
-
-
 }
