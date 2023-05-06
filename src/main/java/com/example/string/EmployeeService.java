@@ -24,7 +24,7 @@ public class EmployeeService {
         public Employee remove (String firstName, String lastName, int department, int salary) {
         Employee employee = new Employee(firstName, lastName, department, salary);
             if (!employees.contains(employee)) {
-                throw new EmployeeNotFoundException();
+                throw new EmployeeAlreadyAddedException();
             }
             employees.remove(employee);
             return employee;
@@ -33,7 +33,7 @@ public class EmployeeService {
         public Employee find (String firstName, String lastName, int department, int salary) {
             Employee employee = new Employee(firstName, lastName,  department, salary);
             if (!employees.contains(employee)) {
-               throw new EmployeeNotFoundException();
+               throw new EmployeeAlreadyAddedException();
             }
             return employee;
         }
