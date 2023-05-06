@@ -2,36 +2,40 @@ package com.example.string;
 
 import org.springframework.stereotype.Service;
 
+
 import javax.annotation.PostConstruct;
 import java.util.*;
 
 @Service
 public class EmployeeService {
-    private final int SIZE=3;
-    private final Map<String, Employee> employees = new HashMap<>(SIZE);
 
-    public Employee add(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (employees.containsKey(employee.getFullName())) {
+    private static final int SIZE=3;
+    private final List<Employee> employees = new ArrayList<>();
+
+    public Employee add(String firstName, String lastName, int department, int salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
+        if (employees.contains(employee)) {
                 throw new EmployeeAlreadyAddedException();
             }
-        employees.put(employee.getFullName(), employee);
+       if (employees.size() < SIZE);
+        employees.add(employee);
         return employee;
     }
-        public Employee find (String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-            if (employees.containsKey(employee.getFullName())) {
-                return employees.get(employee.getFullName());
+        public Employee remove (String firstName, String lastName, int department, int salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
+            if (!employees.contains(employee)) {
+                throw new EmployeeNotFoundException();
             }
-        throw new EmployeeNotFoundException(employee);
+            employees.remove(employee);
+            return employee;
         }
 
-        public Employee remove (String firstName, String lastName) {
-            Employee employee = new Employee(firstName, lastName);
-            if (employees.containsKey(employee.getFullName())) {
-                employees.remove(employee.getFullName());
-                return employee;
+        public Employee find (String firstName, String lastName, int department, int salary) {
+            Employee employee = new Employee(firstName, lastName,  department, salary);
+            if (!employees.contains(employee)) {
+               throw new EmployeeNotFoundException();
             }
-            throw new EmployeeNotFoundException(employee);
+            return employee;
         }
+        public List<Employee> getAll() {return new ArrayList<>(employees);}
 }
